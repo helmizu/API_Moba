@@ -26,4 +26,9 @@ router.delete('/manager/:id', data.deleteManager)
 router.delete('/medis/:id', data.deleteMedis)
 router.delete('/guru/:id', data.deleteGuru)
 
+router.post('/pemain', data.uploadImage, data.insertPemain)
+router.get('/pemain/:sekolah', data.getPemain)
+router.put('/pemain/:id', data.updatePemain)
+router.delete('/pemain/:id', data.deletePemain)
+
 module.exports = router;

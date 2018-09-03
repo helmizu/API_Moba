@@ -5,7 +5,8 @@ const col = {
     headcoach : "headcoach",
     manager : "manager",
     medis : "medis",
-    guru : "guru"
+    guru : "guru",
+    pemain : "pemain"
 }
 
 // set up upload image
@@ -254,6 +255,64 @@ function deleteGuru(req, res) {
     })
 }
 
+
+function insertPemain(req, res) {
+    MongoClient.connect(keys.mongoURI, function (err, client) {
+        const db = client.db(keys.dbName)
+        const data = req.body
+        if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) } 
+        if(req.file) {
+            data.image = req.file.filename
+            msg = 'Data Inserted with Image'
+        } else {
+            msg = 'Data Inserted without Image'
+        }    
+        database.insertData(db, col.pemain, data, function (err, result) {
+            if (err) return res.status(500).json(err)
+            return res.status(201).json({msg : msg})
+        })
+        client.close()
+    })
+}
+
+function getPemain(req, res) {
+    MongoClient.connect(keys.mongoURI, function (err, client) {
+        const db = client.db(keys.dbName)
+        const data = req.params
+        if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) }     
+        database.findData(db, col.pemain, {sekolah : data.sekolah}, function (err, data) {
+            if (err) return res.status(500).json(err)
+            return res.status(200).json(data)
+        })
+        client.close()
+    })
+}
+
+function updatePemain(req, res) {
+    MongoClient.connect(keys.mongoURI, function (err, client) {
+        const db = client.db(keys.dbName)
+        const data = req.body
+        if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) }     
+        database.updateData(db, col.pemain, req.params.id, data, function (err, result) {
+            if (err) return res.status(500).json(err)
+            return res.status(200).json(result)
+        })
+        client.close()
+    })
+}
+
+function deletePemain(req, res) {
+    MongoClient.connect(keys.mongoURI, function (err, client) {
+        const db = client.db(keys.dbName)
+        const data = req.params
+        if(!data.id || (typeof data.id === undefined) || data.id === "") { return res.status(400).json({msg : "id required"}) }     
+        database.removeData(db, col.pemain, data.id, function (err, result) {
+            if (err) return res.status(500).json(err)
+            return res.status(200).json(result)
+        })
+        client.close()
+    })
+}
 module.exports = { 
     uploadImage, 
     insertHeadcoach, 
@@ -271,5 +330,9 @@ module.exports = {
     deleteHeadcoach,
     deleteManager,
     deleteMedis,
-    deleteGuru
+    deleteGuru,
+    insertPemain,
+    getPemain,
+    updatePemain,
+    deletePemain,
 }
