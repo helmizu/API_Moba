@@ -25,7 +25,7 @@ require('./config/passport')(passport)
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/data', dataRouter);
+app.use('/data', passport.authenticate('jwt', {session : false }), dataRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
