@@ -2,10 +2,6 @@ const express = require('express');
 const router = express.Router();
 const data = require('../controller/data')
 
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-
 router.post('/headcoach', data.uploadImage, data.insertHeadcoach)
 router.post('/manager', data.uploadImage, data.insertManager)
 router.post('/medis', data.uploadImage, data.insertMedis)

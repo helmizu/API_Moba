@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require('passport')
 
-const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const dataRouter = require('./routes/data');
 
@@ -23,7 +22,6 @@ app.use(passport.initialize())
 //Passport Config
 require('./config/passport')(passport)
 
-app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/data', passport.authenticate('jwt', {session : false }), dataRouter);
 
