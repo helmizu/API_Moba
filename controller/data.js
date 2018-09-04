@@ -27,6 +27,7 @@ function insertHeadcoach(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)
         const data = req.body
+        data.sekolah = req.user.sekolah         
         if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) } 
         if(req.file) {
             data.image = req.file.filename
@@ -46,6 +47,7 @@ function insertManager(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)
         const data = req.body
+        data.sekolah = req.user.sekolah         
         if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) } 
         if(req.file) {
             data.image = req.file.filename
@@ -65,6 +67,7 @@ function insertMedis(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)
         const data = req.body
+        data.sekolah = req.user.sekolah         
         if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) } 
         if(req.file) {
             data.image = req.file.filename
@@ -84,6 +87,7 @@ function insertGuru(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)
         const data = req.body
+        data.sekolah = req.user.sekolah         
         if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) } 
         if(req.file) {
             data.image = req.file.filename
@@ -102,7 +106,7 @@ function insertGuru(req, res) {
 function getHeadcoach(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)
-        const data = req.params
+        const data = req.user
         if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) }     
         database.findData(db, col.headcoach, {sekolah : data.sekolah}, function (err, data) {
             if (err) return res.status(500).json(err)
@@ -115,7 +119,7 @@ function getHeadcoach(req, res) {
 function getManager(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)
-        const data = req.params
+        const data = req.user
         if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) }     
         database.findData(db, col.manager, {sekolah : data.sekolah}, function (err, data) {
             if (err) return res.status(500).json(err)
@@ -128,7 +132,7 @@ function getManager(req, res) {
 function getMedis(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)
-        const data = req.params
+        const data = req.user
         if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) }     
         database.findData(db, col.medis, {sekolah : data.sekolah}, function (err, data) {
             if (err) return res.status(500).json(err)
@@ -141,7 +145,7 @@ function getMedis(req, res) {
 function getGuru(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)
-        const data = req.params
+        const data = req.user
         if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) }     
         database.findData(db, col.guru, {sekolah : data.sekolah}, function (err, data) {
             if (err) return res.status(500).json(err)
@@ -155,6 +159,7 @@ function updateHeadcoach(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)
         const data = req.body
+        data.sekolah = req.user.sekolah         
         if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) }     
         database.updateData(db, col.headcoach, req.params.id, data, function (err, result) {
             if (err) return res.status(500).json(err)
@@ -168,6 +173,7 @@ function updateManager(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)
         const data = req.body
+        data.sekolah = req.user.sekolah         
         if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) }     
         database.updateData(db, col.manager, req.params.id, data, function (err, result) {
             if (err) return res.status(500).json(err)
@@ -181,6 +187,7 @@ function updateMedis(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)
         const data = req.body
+        data.sekolah = req.user.sekolah         
         if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) }     
         database.updateData(db, col.medis, req.params.id, data, function (err, result) {
             if (err) return res.status(500).json(err)
@@ -194,6 +201,7 @@ function updateGuru(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)
         const data = req.body
+        data.sekolah = req.user.sekolah         
         if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) }     
         database.updateData(db, col.guru, req.params.id, data, function (err, result) {
             if (err) return res.status(500).json(err)
@@ -260,6 +268,7 @@ function insertPemain(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)
         const data = req.body
+        data.sekolah = req.user.sekolah         
         if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) } 
         if(req.file) {
             data.image = req.file.filename
@@ -278,7 +287,7 @@ function insertPemain(req, res) {
 function getPemain(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)
-        const data = req.params
+        const data = req.user
         if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) }     
         database.findData(db, col.pemain, {sekolah : data.sekolah}, function (err, data) {
             if (err) return res.status(500).json(err)
@@ -292,7 +301,6 @@ function updatePemain(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)
         const data = req.body
-        if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) }     
         database.updateData(db, col.pemain, req.params.id, data, function (err, result) {
             if (err) return res.status(500).json(err)
             return res.status(200).json(result)
@@ -304,9 +312,8 @@ function updatePemain(req, res) {
 function deletePemain(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)
-        const data = req.params
-        if(!data.id || (typeof data.id === undefined) || data.id === "") { return res.status(400).json({msg : "id required"}) }     
-        database.removeData(db, col.pemain, data.id, function (err, result) {
+        if(!req.params.id || (typeof req.params.id === undefined) || req.params.id === "") { return res.status(400).json({msg : "id required"}) }     
+        database.removeData(db, col.pemain, req.params.id, function (err, result) {
             if (err) return res.status(500).json(err)
             return res.status(200).json(result)
         })
