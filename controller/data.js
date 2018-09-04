@@ -297,6 +297,17 @@ function getPemain(req, res) {
     })
 }
 
+function getPemainDetail(req, res) {
+    MongoClient.connect(keys.mongoURI, function (err, client) {
+        const db = client.db(keys.dbName)
+        database.findData(db, col.pemain, {_id : new database.OID(req.params.id)}, function (err, data) {
+            if (err) return res.status(500).json(err)
+            return res.status(200).json(data[0])
+        })
+        client.close()
+    })
+}
+
 function updatePemain(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)
@@ -340,6 +351,7 @@ module.exports = {
     deleteGuru,
     insertPemain,
     getPemain,
+    getPemainDetail,
     updatePemain,
     deletePemain,
 }

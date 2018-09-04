@@ -32,4 +32,4 @@ const removeData = function(db, col, id, cb) {
     });    
 }
 
-module.exports = { insertData, findData, updateData, removeData }
+module.exports = { insertData, findData, updateData, removeData, OID }

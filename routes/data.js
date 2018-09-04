@@ -28,6 +28,7 @@ router.delete('/guru/:id', data.deleteGuru)
 
 router.post('/pemain', data.uploadImage, data.insertPemain)
 router.get('/pemain', data.getPemain)
+router.get('/pemain/:id', data.getPemainDetail)
 router.put('/pemain/:id', data.updatePemain)
 router.delete('/pemain/:id', data.deletePemain)
 
