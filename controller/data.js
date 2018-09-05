@@ -23,6 +23,26 @@ const upload = multer({ storage: storage });
 
 const uploadImage = upload.single('image');
 
+const uploadImageAll = upload.fields(
+    [
+        { name: 'image', maxCount: 1 },
+        { name: 'kartu_identitas', maxCount: 1 }
+    ]
+)
+  //  req.files['image'][0] -> File
+  //  req.files['kartu_identitas'][0] -> File
+
+  const uploadImageCoach = upload.fields(
+    [
+        { name: 'image', maxCount: 1 },
+        { name: 'kartu_identitas', maxCount: 1 },
+        { name: 'kartu_lisensi', maxCount: 1 }
+    ]
+)
+  //  req.files['image'][0] -> File
+  //  req.files['kartu_identitas'][0] -> File
+  //  req.files['kartu_lisensi'][0] -> File
+
 function insertHeadcoach(req, res) {
     MongoClient.connect(keys.mongoURI, function (err, client) {
         const db = client.db(keys.dbName)

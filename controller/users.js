@@ -12,7 +12,7 @@ function registerUser(req, res) {
         const db = client.db(keys.dbName)
         var data = req.body
         if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) } 
-        if(!data.kategori || (typeof data.kategori === undefined) || data.kategori === "") { return res.status(400).json({msg : "sekolah required"}) } 
+        if(!data.kategori || (typeof data.kategori === undefined) || data.kategori === "") { return res.status(400).json({msg : "kategori required"}) } 
         data.sekolah = `${req.body.sekolah} ${req.body.kategori}`
         database.findData(db, userCol, { email : data.email }, function (err, user) {
             if (err) return res.status(500).json(err)
