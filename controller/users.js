@@ -6,7 +6,9 @@ const keys = require('../config/keys')
 const userCol = "user"
 const connect_err = {err : "Connection Error"}
 
-function registerUser(req, res) {
+var users = {};
+
+users.registerUser = function (req, res) {
     MongoClient.connect(keys.mongoURI, {useNewUrlParser : true}, function (err, client) {
         if (err) return res.status(500).json(connect_err)
         const db = client.db(keys.dbName)
@@ -35,7 +37,7 @@ function registerUser(req, res) {
     })
 }
 
-function loginUser(req, res) {
+users.loginUser = function (req, res) {
     MongoClient.connect(keys.mongoURI, {useNewUrlParser : true}, function (err, client) {
         if (err) return res.status(500).json(connect_err)
         const db = client.db(keys.dbName)
@@ -69,4 +71,4 @@ function loginUser(req, res) {
     })
 }
 
-module.exports = { registerUser, loginUser }
+module.exports = users
