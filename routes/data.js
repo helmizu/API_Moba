@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const data = require('../controller/data')
 
-router.post('/headcoach', data.uploadImage, data.insertHeadcoach)
-router.post('/manager', data.uploadImage, data.insertManager)
-router.post('/medis', data.uploadImage, data.insertMedis)
-router.post('/guru', data.uploadImage, data.insertGuru)
+router.post('/headcoach', data.uploadImageCoach, data.insertHeadcoach)
+router.post('/manager', data.uploadImageAll, data.insertManager)
+router.post('/medis', data.uploadImageAll, data.insertMedis)
+router.post('/guru', data.uploadImageAll, data.insertGuru)
 
 router.get('/headcoach', data.getHeadcoach)
 router.get('/manager', data.getManager)
@@ -22,7 +22,7 @@ router.delete('/manager/:id', data.deleteManager)
 router.delete('/medis/:id', data.deleteMedis)
 router.delete('/guru/:id', data.deleteGuru)
 
-router.post('/pemain', data.uploadImage, data.insertPemain)
+router.post('/pemain', data.uploadImageAll, data.insertPemain)
 router.get('/pemain', data.getPemain)
 router.get('/pemain/:id', data.getPemainDetail)
 router.put('/pemain/:id', data.updatePemain)

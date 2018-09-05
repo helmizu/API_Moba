@@ -13,6 +13,8 @@ users.registerUser = function (req, res) {
         if (err) return res.status(500).json(connect_err)
         const db = client.db(keys.dbName)
         var data = req.body
+        if(!data.email || (typeof data.email === undefined) || data.email === "") { return res.status(400).json({msg : "email required"}) } 
+        if(!data.password || (typeof data.password === undefined) || data.password === "") { return res.status(400).json({msg : "email required"}) } 
         if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) } 
         if(!data.kategori || (typeof data.kategori === undefined) || data.kategori === "") { return res.status(400).json({msg : "kategori required"}) } 
         data.sekolah = `${req.body.sekolah} ${req.body.kategori}`

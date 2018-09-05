@@ -22,9 +22,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 var data = {
-    
-    uploadImage : upload.single('image'),
-    
+
     uploadImageAll : upload.fields(
         [
             { name: 'image', maxCount: 1 },
@@ -46,14 +44,32 @@ var data = {
         MongoClient.connect(keys.mongoURI, function (err, client) {
             const db = client.db(keys.dbName)
             const data = req.body
+            var msg = ''
             data.sekolah = req.user.sekolah         
             if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) } 
-            if(req.file) {
-                data.image = req.file.filename
+            if(req.files['image']) {
+                data.image = req.files['image'][0].filename
                 msg = 'Data Inserted with Image'
             } else {
                 msg = 'Data Inserted without Image'
-            }    
+            }
+            if(req.files['kartu_identitas']) {
+                data.kartu_identitas = req.files['kartu_identitas'][0].filename
+                msg = 'Data Inserted with Kartu Identitas'
+            } else {
+                msg = 'Data Inserted without Kartu Identitas'
+            }
+            if(req.files['kartu_lisensi']) {
+                data.kartu_lisensi = req.files['kartu_lisensi'][0].filename
+                msg = 'Data Inserted with Kartu Lisensi'
+            } else {
+                msg = 'Data Inserted without Kartu Lisensi'
+            }
+
+            if(req.files['image'] && req.files['kartu_identitas'] && req.files['kartu_lisensi']) {
+                msg = 'Data Inserted'
+            }
+
             database.insertData(db, col.headcoach, data, function (err, result) {
                 if (err) return res.status(500).json(err)
                 return res.status(201).json({msg : msg})
@@ -66,14 +82,24 @@ var data = {
         MongoClient.connect(keys.mongoURI, function (err, client) {
             const db = client.db(keys.dbName)
             const data = req.body
+            var msg = ''
             data.sekolah = req.user.sekolah         
             if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) } 
-            if(req.file) {
-                data.image = req.file.filename
+            if(req.files['image']) {
+                data.image = req.files['image'][0].filename
                 msg = 'Data Inserted with Image'
             } else {
                 msg = 'Data Inserted without Image'
-            }    
+            }
+            if(req.files['kartu_identitas']) {
+                data.kartu_identitas = req.files['kartu_identitas'][0].filename
+                msg = 'Data Inserted with Kartu Identitas'
+            } else {
+                msg = 'Data Inserted without Kartu Identitas'
+            }  
+            if(req.files['image'] && req.files['kartu_identitas']) {
+                msg = 'Data Inserted'
+            }
             database.insertData(db, col.manager, data, function (err, result) {
                 if (err) return res.status(500).json(err)
                 return res.status(201).json({msg : msg})
@@ -86,14 +112,24 @@ var data = {
         MongoClient.connect(keys.mongoURI, function (err, client) {
             const db = client.db(keys.dbName)
             const data = req.body
+            var msg = ''
             data.sekolah = req.user.sekolah         
             if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) } 
-            if(req.file) {
-                data.image = req.file.filename
+            if(req.files['image']) {
+                data.image = req.files['image'][0].filename
                 msg = 'Data Inserted with Image'
             } else {
                 msg = 'Data Inserted without Image'
-            }    
+            }
+            if(req.files['kartu_identitas']) {
+                data.kartu_identitas = req.files['kartu_identitas'][0].filename
+                msg = 'Data Inserted with Kartu Identitas'
+            } else {
+                msg = 'Data Inserted without Kartu Identitas'
+            }
+            if(req.files['image'] && req.files['kartu_identitas']) {
+                msg = 'Data Inserted'
+            }
             database.insertData(db, col.medis, data, function (err, result) {
                 if (err) return res.status(500).json(err)
                 return res.status(201).json({msg : msg})
@@ -106,13 +142,23 @@ var data = {
         MongoClient.connect(keys.mongoURI, function (err, client) {
             const db = client.db(keys.dbName)
             const data = req.body
+            var msg = ''
             data.sekolah = req.user.sekolah         
             if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) } 
-            if(req.file) {
-                data.image = req.file.filename
+            if(req.files['image']) {
+                data.image = req.files['image'][0].filename
                 msg = 'Data Inserted with Image'
             } else {
                 msg = 'Data Inserted without Image'
+            }
+            if(req.files['kartu_identitas']) {
+                data.kartu_identitas = req.files['kartu_identitas'][0].filename
+                msg = 'Data Inserted with Kartu Identitas'
+            } else {
+                msg = 'Data Inserted without Kartu Identitas'
+            }
+            if(req.files['image'] && req.files['kartu_identitas']) {
+                msg = 'Data Inserted'
             }    
             database.insertData(db, col.guru, data, function (err, result) {
                 if (err) return res.status(500).json(err)
@@ -287,13 +333,23 @@ var data = {
         MongoClient.connect(keys.mongoURI, function (err, client) {
             const db = client.db(keys.dbName)
             const data = req.body
+            var msg = ''
             data.sekolah = req.user.sekolah         
             if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) } 
-            if(req.file) {
-                data.image = req.file.filename
+            if(req.files['image']) {
+                data.image = req.files['image'][0].filename
                 msg = 'Data Inserted with Image'
             } else {
                 msg = 'Data Inserted without Image'
+            }
+            if(req.files['kartu_identitas']) {
+                data.kartu_identitas = req.files['kartu_identitas'][0].filename
+                msg = 'Data Inserted with Kartu Identitas'
+            } else {
+                msg = 'Data Inserted without Kartu Identitas'
+            }
+            if(req.files['image'] && req.files['kartu_identitas']) {
+                msg = 'Data Inserted'
             }    
             database.insertData(db, col.pemain, data, function (err, result) {
                 if (err) return res.status(500).json(err)
