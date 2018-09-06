@@ -12,10 +12,10 @@ router.get('/manager', data.getManager)
 router.get('/medis', data.getMedis)
 router.get('/guru', data.getGuru)
 
-router.put('/headcoach/:id', data.updateHeadcoach)
-router.put('/manager/:id', data.updateManager)
-router.put('/medis/:id', data.updateMedis)
-router.put('/guru/:id', data.updateGuru)
+router.put('/headcoach/:id', data.uploadImageCoach, data.updateHeadcoach)
+router.put('/manager/:id', data.uploadImageAll, data.updateManager)
+router.put('/medis/:id', data.uploadImageAll, data.updateMedis)
+router.put('/guru/:id', data.uploadImageAll, data.updateGuru)
 
 router.delete('/headcoach/:id', data.deleteHeadcoach)
 router.delete('/manager/:id', data.deleteManager)
@@ -25,7 +25,7 @@ router.delete('/guru/:id', data.deleteGuru)
 router.post('/pemain', data.uploadImageAll, data.insertPemain)
 router.get('/pemain', data.getPemain)
 router.get('/pemain/:id', data.getPemainDetail)
-router.put('/pemain/:id', data.updatePemain)
+router.put('/pemain/:id', data.uploadImageAll, data.updatePemain)
 router.delete('/pemain/:id', data.deletePemain)
 
 module.exports = router;
