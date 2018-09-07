@@ -14,25 +14,31 @@ users.registerUser = function (req, res) {
         const db = client.db(keys.dbName)
         var data = req.body
         if(!data.email || (typeof data.email === undefined) || data.email === "") { return res.status(400).json({msg : "email required"}) } 
-        if(!data.password || (typeof data.password === undefined) || data.password === "") { return res.status(400).json({msg : "email required"}) } 
+        if(!data.password || (typeof data.password === undefined) || data.password === "") { return res.status(400).json({msg : "password required"}) } 
         if(!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") { return res.status(400).json({msg : "sekolah required"}) } 
         if(!data.kategori || (typeof data.kategori === undefined) || data.kategori === "") { return res.status(400).json({msg : "kategori required"}) } 
-        data.sekolah = `${req.body.sekolah} ${req.body.kategori}`
+        data.sekolah = `${req.body.sekolah.toLowerCase()} - ${req.body.kategori.toLowerCase()}`
         database.findData(db, userCol, { email : data.email }, function (err, user) {
             if (err) return res.status(500).json(err)
             if (user.length > 0) return res.status(400).json({err : "user telah terdaftar"})
             else {
-                bcrypt.genSalt(10, (err, salt) => {
-                    if(err) return res.status(500).json({err : "hash error"})
-                    bcrypt.hash(data.password, salt, (err, hash) => {
-                        if(err) return res.status(500).json({err : "hash error"})
-                        data.password = hash
-                        database.insertData(db, userCol, data, function (err, result) {
-                            client.close()
-                            if (err) return res.status(500).json(err)
-                            res.status(201).json({msg : "Selamat anda berhasil mendaftar"})
-                        })
-                    })
+                database.findData(db, userCol, { sekolah : data.sekolah }, function (err, sekolah) {
+                    if (err) return res.status(500).json(err)
+                    if (sekolah.length > 0) return res.status(400).json({err : "sekolah dengan tim ini telah terdaftar"})
+                    else{
+                        bcrypt.genSalt(10, (err, salt) => {
+                            if(err) return res.status(500).json({err : "hash error"})
+                            bcrypt.hash(data.password, salt, (err, hash) => {
+                                if(err) return res.status(500).json({err : "hash error"})
+                                data.password = hash
+                                database.insertData(db, userCol, data, function (err, result) {
+                                    client.close()
+                                    if (err) return res.status(500).json(err)
+                                    res.status(201).json({msg : "Selamat anda berhasil mendaftar"})
+                                })
+                            })
+                        })   
+                    }
                 })
             }
         })

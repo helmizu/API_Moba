@@ -25,10 +25,15 @@ app.use(passport.initialize())
 //Passport Config
 require('./config/passport')(passport)
 
+app.all('/*', (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Authorization')
+  res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE')
+  next()
+})
+
 app.use('/users', usersRouter);
-app.use('/data', passport.authenticate('jwt', {
-  session: false
-}), dataRouter);
+app.use('/data', dataRouter);
 app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler

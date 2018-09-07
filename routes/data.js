@@ -7,10 +7,10 @@ router.post('/manager', data.uploadImageAll, data.insertManager)
 router.post('/medis', data.uploadImageAll, data.insertMedis)
 router.post('/guru', data.uploadImageAll, data.insertGuru)
 
-router.get('/headcoach', data.getHeadcoach)
-router.get('/manager', data.getManager)
-router.get('/medis', data.getMedis)
-router.get('/guru', data.getGuru)
+router.get('/headcoach/:sekolah', data.getHeadcoach)
+router.get('/manager/:sekolah', data.getManager)
+router.get('/medis/:sekolah', data.getMedis)
+router.get('/guru/:sekolah', data.getGuru)
 
 router.put('/headcoach/:id', data.uploadImageCoach, data.updateHeadcoach)
 router.put('/manager/:id', data.uploadImageAll, data.updateManager)
@@ -23,9 +23,12 @@ router.delete('/medis/:id', data.deleteMedis)
 router.delete('/guru/:id', data.deleteGuru)
 
 router.post('/pemain', data.uploadImageAll, data.insertPemain)
-router.get('/pemain', data.getPemain)
-router.get('/pemain/:id', data.getPemainDetail)
+router.get('/pemain/:sekolah', data.getPemain)
+router.get('/pemain/detail/:id', data.getPemainDetail)
 router.put('/pemain/:id', data.uploadImageAll, data.updatePemain)
 router.delete('/pemain/:id', data.deletePemain)
+
+router.post('/syarat', data.uploadSyarat, data.insertSyarat)
+router.get('/syarat/:sekolah', data.getSyarat)
 
 module.exports = router;
