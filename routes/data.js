@@ -29,6 +29,7 @@ router.put('/pemain/:id', data.uploadImageAll, data.updatePemain)
 router.delete('/pemain/:id', data.deletePemain)
 
 router.post('/syarat', data.uploadSyarat, data.insertSyarat)
+router.put('/syarat', data.verifikasi)
 router.get('/syarat/:sekolah', data.getSyarat)
 
 module.exports = router;

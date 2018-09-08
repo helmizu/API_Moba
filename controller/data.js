@@ -628,7 +628,6 @@ var data = {
                     })
                 }
             })
-
         })
     },
 
@@ -642,6 +641,39 @@ var data = {
                 return res.status(200).json(data[0])
             })
             client.close()
+        })
+    },
+
+    verifikasi: function (req, res) {
+        MongoClient.connect(keys.mongoURI, function (err, client) {
+            const db = client.db(keys.dbName)
+            const data = req.body
+            var msg = 'Sukses verifikasi'
+            if (!data.sekolah || (typeof data.sekolah === undefined) || data.sekolah === "") {
+                return res.status(400).json({
+                    msg: "sekolah required"
+                })
+            }
+            database.findData(db, col.syarat, {sekolah : data.sekolah}, function (err, docs) {
+                if (err) return res.status(500).json(err)
+                if (docs.length > 0) {
+                    database.updateData(db, col.syarat, docs[0]._id, data, function (err, result) {
+                        client.close()
+                        if (err) return res.status(500).json(err)
+                        return res.status(200).json({
+                            msg: msg
+                        })
+                    })
+                } else {
+                    database.insertData(db, col.syarat, data, function (err, result) {
+                        client.close()
+                        if (err) return res.status(500).json(err)
+                        return res.status(201).json({
+                            msg: msg
+                        })
+                    })
+                }
+            })
         })
     },
 }
